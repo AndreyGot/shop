@@ -21,6 +21,17 @@ class ValueProduct
     private $id;
 
     /**
+     * @ORM\Column(name="bill_id", type="integer")
+     */
+    private $billId;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Bill", inversedBy="bills")
+     * @ORM\JoinColumn(name="bill_id", referencedColumnName="id")
+     */
+    private $bill;
+
+    /**
      * @ORM\Column(name="product_id", type="integer")
      */
     private $productId;
@@ -113,5 +124,51 @@ class ValueProduct
     public function getProduct()
     {
         return $this->product;
+    }
+
+    /**
+     * Set billId
+     *
+     * @param integer $billId
+     * @return ValueProduct
+     */
+    public function setBillId($billId)
+    {
+        $this->billId = $billId;
+
+        return $this;
+    }
+
+    /**
+     * Get billId
+     *
+     * @return integer 
+     */
+    public function getBillId()
+    {
+        return $this->billId;
+    }
+
+    /**
+     * Set bill
+     *
+     * @param \Acme\ShopBundle\Entity\Bill $bill
+     * @return ValueProduct
+     */
+    public function setBill(\Acme\ShopBundle\Entity\Bill $bill = null)
+    {
+        $this->bill = $bill;
+
+        return $this;
+    }
+
+    /**
+     * Get bill
+     *
+     * @return \Acme\ShopBundle\Entity\Bill 
+     */
+    public function getBill()
+    {
+        return $this->bill;
     }
 }

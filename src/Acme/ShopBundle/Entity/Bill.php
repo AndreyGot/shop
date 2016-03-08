@@ -2,6 +2,7 @@
 namespace Acme\ShopBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Bill
@@ -30,6 +31,18 @@ class Bill
      */
     private $user;
 
+    /**
+     * @ORM\OneToMany(targetEntity="ValueProduct", mappedBy="bill")
+     */
+    private $valueProducts;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->valueProducts = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -85,5 +98,38 @@ class Bill
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Add valueProducts
+     *
+     * @param \Acme\ShopBundle\Entity\ValueProduct $valueProducts
+     * @return Bill
+     */
+    public function addValueProduct(\Acme\ShopBundle\Entity\ValueProduct $valueProducts)
+    {
+        $this->valueProducts[] = $valueProducts;
+
+        return $this;
+    }
+
+    /**
+     * Remove valueProducts
+     *
+     * @param \Acme\ShopBundle\Entity\ValueProduct $valueProducts
+     */
+    public function removeValueProduct(\Acme\ShopBundle\Entity\ValueProduct $valueProducts)
+    {
+        $this->valueProducts->removeElement($valueProducts);
+    }
+
+    /**
+     * Get valueProducts
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getValueProducts()
+    {
+        return $this->valueProducts;
     }
 }
