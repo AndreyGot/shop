@@ -46,6 +46,11 @@ class Product
     private $category;
 
     /**
+     * @ORM\OneToMany(targetEntity="ValueProduct", mappedBy="product")
+     */
+    private $valueProducts;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -168,5 +173,45 @@ class Product
     public function getCategory()
     {
         return $this->category;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->valueProducts = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add valueProducts
+     *
+     * @param \Acme\ShopBundle\Entity\ValueProduct $valueProducts
+     * @return Product
+     */
+    public function addValueProduct(\Acme\ShopBundle\Entity\ValueProduct $valueProducts)
+    {
+        $this->valueProducts[] = $valueProducts;
+
+        return $this;
+    }
+
+    /**
+     * Remove valueProducts
+     *
+     * @param \Acme\ShopBundle\Entity\ValueProduct $valueProducts
+     */
+    public function removeValueProduct(\Acme\ShopBundle\Entity\ValueProduct $valueProducts)
+    {
+        $this->valueProducts->removeElement($valueProducts);
+    }
+
+    /**
+     * Get valueProducts
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getValueProducts()
+    {
+        return $this->valueProducts;
     }
 }

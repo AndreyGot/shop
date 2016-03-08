@@ -26,6 +26,12 @@ class ValueProduct
     private $productId;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Product", inversedBy="products")
+     * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
+     */
+    private $product;
+
+    /**
      * @ORM\Column(name="value", type="integer")
      */
     private $value;
@@ -84,5 +90,28 @@ class ValueProduct
     public function getValue()
     {
         return $this->value;
+    }
+
+    /**
+     * Set product
+     *
+     * @param \Acme\ShopBundle\Entity\Product $product
+     * @return ValueProduct
+     */
+    public function setProduct(\Acme\ShopBundle\Entity\Product $product = null)
+    {
+        $this->product = $product;
+
+        return $this;
+    }
+
+    /**
+     * Get product
+     *
+     * @return \Acme\ShopBundle\Entity\Product 
+     */
+    public function getProduct()
+    {
+        return $this->product;
     }
 }
