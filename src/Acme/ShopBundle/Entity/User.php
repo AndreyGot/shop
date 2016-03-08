@@ -42,7 +42,7 @@ class User
      */
     private $password;
 
-        /**
+    /**
      * @var string
      *
      * @ORM\Column(name="phone", type="string", length=255)
@@ -56,6 +56,18 @@ class User
      */
     private $address;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Bill", mappedBy="user")
+     */
+    private $bills;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->bills = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -180,5 +192,38 @@ class User
     public function getAddress()
     {
         return $this->address;
+    }
+
+    /**
+     * Add bills
+     *
+     * @param \Acme\ShopBundle\Entity\Bill $bills
+     * @return User
+     */
+    public function addBill(\Acme\ShopBundle\Entity\Bill $bills)
+    {
+        $this->bills[] = $bills;
+
+        return $this;
+    }
+
+    /**
+     * Remove bills
+     *
+     * @param \Acme\ShopBundle\Entity\Bill $bills
+     */
+    public function removeBill(\Acme\ShopBundle\Entity\Bill $bills)
+    {
+        $this->bills->removeElement($bills);
+    }
+
+    /**
+     * Get bills
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getBills()
+    {
+        return $this->bills;
     }
 }

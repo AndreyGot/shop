@@ -2,7 +2,6 @@
 namespace Acme\ShopBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Bill
@@ -24,6 +23,12 @@ class Bill
      * @ORM\Column(name="user_id", type="integer")
      */
     private $userId;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="users")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    private $user;
 
 
     /**
@@ -57,5 +62,28 @@ class Bill
     public function getUserId()
     {
         return $this->userId;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \Acme\ShopBundle\Entity\User $user
+     * @return Bill
+     */
+    public function setUser(\Acme\ShopBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Acme\ShopBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }
