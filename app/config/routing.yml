@@ -2,7 +2,3 @@ acme_shop:
     resource: "@AcmeShopBundle/Controller/"
     type:     annotation
     prefix:   /
-
-app:
-    resource: "@AppBundle/Controller/"
-    type:     annotation
