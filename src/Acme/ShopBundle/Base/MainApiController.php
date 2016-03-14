@@ -27,17 +27,14 @@ class MainApiController extends Controller
 
     public function indexAction()
     {
-        $arrThisClass = explode("/", get_class($this));
-        $lastElement  = end($arrThisClass);
         $currentEntityName = $this->getCurrentEntityName();
         if (!$currentEntityName) {
             return ApiResponse::bad('Controller name is not valid (it is indexAction).');
-            
         }
 
         $em         = $this->getDoctrine()->getManager();
         $entities   = $em->getRepository("AcmeShopBundle:{$currentEntityName}")->findAll();
-        $ret = [];
+        $ret        = [];
         
         foreach ($entities as $entity) {
             $ret[]   = $entity -> toArray();
@@ -84,10 +81,10 @@ class MainApiController extends Controller
     public function createAction(Request $request)
     {
         $content = $request->getContent();
-        if (!empty($content))
-        {
+        if (!empty($content)) {
             $data = json_decode($content, true); // 2nd param to get as array
         }
+
         $em                = $this->getDoctrine()->getManager();
         $currentEntityName = $this->getCurrentEntityName();
 
@@ -133,38 +130,34 @@ class MainApiController extends Controller
         $metadata = $em->getClassMetaData(get_class($entity));
         if (!empty($metadata->associationMappings)) {
 
-          foreach ($metadata->associationMappings as $relation) {
-            $targetEntityClass = $relation['targetEntity'];
-            $method          = 'get' . ucfirst($relation['fieldName']);
+            foreach ($metadata->associationMappings as $relation) {
+                $targetEntityClass = $relation['targetEntity'];
+                $method          = 'get' . ucfirst($relation['fieldName']);
 
-            if( !method_exists($entity, $method.'Id') ){
-              continue;
-            }
+                if( !method_exists($entity, $method.'Id') ){
+                    continue;
+                }
             
-            $relEntityId = $entity->{$method.'Id'}();
-            /**
-             * was is_numeric($relEntityId) but now we use UUID strategy for fields `id`
-             * this way we can check only if id is set
-             * 
-            **/
-            if ( $relEntityId ) {
-                $relObject = $em->find($targetEntityClass, $relEntityId);
-                $set_method = 'set' . ucfirst($relation['fieldName']);
-                $entity->{$set_method}($relObject);
+                $relEntityId = $entity->{$method.'Id'}();
+
+                if ( $relEntityId ) {
+                    $relObject = $em->find($targetEntityClass, $relEntityId);
+                    $set_method = 'set' . ucfirst($relation['fieldName']);
+                    $entity->{$set_method}($relObject);
+                }
             }
-          }
         }
     }
 
     public function getFormErrorMessages ($form)
-      {
+    {
         $errorsArr = [];
         // @var Symfony\Component\Form\FormErrorIterator $form->getErrors(true)
         foreach ($form->getErrors(true) as $key => $error) {
           $errorsArr[] = $error->getMessage();
         }
         return $errorsArr;
-      }
+    }
 }
 
 
