@@ -1,0 +1,114 @@
+ <div ng-show="!currentUser">
+  <div class="row">
+    <div class="col-xs-offset-1 col-xs-6">
+      <table class="table table-striped" >
+      <tr>
+        <th>Id</th>
+        <th>status</th>
+        <th>name</th>
+        <th>password</th>
+        <th>phone</th>
+        <th>address</th>
+      </tr>
+        <tr 
+          ng-repeat="user in users" 
+          style="border: 1px solid green;" 
+          ng-click="editAndShowUser(user)">
+          <!-- ng-click="editCategory(category)" -->
+          <td>
+            <img ng-src="/image/edit_25x25.png" alt="Description" />
+            [[user.id]]
+          </td>
+          <td>[[user.status]]</td>
+          <td>[[user.name]]</td>
+          <td>[[user.password]]</td>
+          <td>[[user.phone]]</td>
+          <td>[[user.address]]</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  
+
+  <button class="btn btn-info" ng-click="addUser()">
+    Add new User
+  </button>
+ </div>
+
+<div ng-show="currentUser">
+  <div class="row">
+    <div class="col-xs-9">
+      <div class="row">
+        <div class="col-xs-offset-1 col-xs-2">
+          <p>Номер товара</p>
+        </div>
+        <div class="col-xs-2">
+          [[currentUser.id]]
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-offset-1 col-xs-2">
+          <p>status</p>
+        </div>
+        <div class="col-xs-2">
+          <input type="text" ng-model="currentUser.status"/>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-offset-1 col-xs-2">
+          <p>name</p>
+        </div>
+        <div class="col-xs-2">
+          <input type="text" ng-model="currentUser.name"/>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-offset-1 col-xs-2">
+          <p>password</p>
+        </div>
+        <div class="col-xs-2">
+          <input type="text" ng-model="currentUser.password"/>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-offset-1 col-xs-2">
+          <p>phone</p>
+        </div>
+        <div class="col-xs-2">
+          <input type="text" ng-model="currentUser.phone"/>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-offset-1 col-xs-2">
+          <p>address</p>
+        </div>
+        <div class="col-xs-2">
+          <input type="text" ng-model="currentUser.address"/>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-offset-1 col-xs-1">
+      <button class="btn btn-success" ng-click="saveUser(currentUser)">
+         SAVE
+      </button>
+    </div>
+    <div class="col-xs-1">
+      <button class="btn btn-danger" ng-click="deleteUser(currentUser)">
+        Delete
+      </button>
+    </div>
+    <div class="col-xs-1">
+      <button class="btn btn-default" ng-click="back()">
+        BACK
+      </button>
+    </div>
+  </div>
+</div>
+

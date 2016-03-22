@@ -1,0 +1,112 @@
+ <div ng-show="!currentProduct">
+  <div class="row">
+    <div class="col-xs-offset-1 col-xs-6">
+      <table class="table table-striped" >
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Описание</th>
+        <th>Категория</th>
+      </tr>
+        <tr 
+          ng-repeat="product in products" 
+          style="border: 1px solid green;" 
+          ng-click="editAndShowProduct(product)">
+          <!-- ng-click="editCategory(category)" -->
+          <td>
+            <img ng-src="/image/edit_25x25.png" alt="Description" />
+            [[product.id]]
+          </td>
+          <td>[[product.name]]</td>
+          <td>[[product.price]]</td>
+          <td>[[product.description]]</td>
+          <td>[[product.categoryName]]</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  
+
+  <button class="btn btn-info" ng-click="addProduct()">
+    Add new Product
+  </button>
+ </div>
+
+<div ng-show="currentProduct">
+  <div class="row">
+    <div class="col-xs-9">
+      <div class="row">
+        <div class="col-xs-offset-1 col-xs-2">
+          <p>Номер товара</p>
+        </div>
+        <div class="col-xs-2">
+          [[currentProduct.id]]
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-offset-1 col-xs-2">
+          <p>Название товара</p>
+        </div>
+        <div class="col-xs-2">
+          <input type="text" ng-model="currentProduct.name"/>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-offset-1 col-xs-2">
+          <p>Цена товара</p>
+        </div>
+        <div class="col-xs-2">
+          <input type="text" ng-model="currentProduct.price"/>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-offset-1 col-xs-2">
+          <p>Описание товара</p>
+        </div>
+        <div class="col-xs-2">
+          <input type="text" ng-model="currentProduct.description"/>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-offset-1 col-xs-2">
+          <p>Категория товара</p>
+        </div>
+        <div class="col-xs-2">
+          <ui-select ng-model="currentProduct.category_id">
+              <ui-select-match>
+                [[$select.selected.name]]
+              </ui-select-match>
+              <ui-select-choices 
+                ui-disable-choice = "category.status == 'inactive'" 
+                repeat            = "category.id as category in categories | filter: $select.search">
+                <div ng-bind-html="category.name | highlight: $select.search"></div>
+              </ui-select-choices>
+          </ui-select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-offset-1 col-xs-1">
+      <button class="btn btn-success" ng-click="saveProduct(currentProduct)">
+         SAVE
+      </button>
+    </div>
+    <div class="col-xs-1">
+      <button class="btn btn-danger" ng-click="deleteProduct(currentProduct)">
+        Delete
+      </button>
+    </div>
+    <div class="col-xs-1">
+      <button class="btn btn-default" ng-click="back()">
+        BACK
+      </button>
+    </div>
+  </div>
+</div>
+

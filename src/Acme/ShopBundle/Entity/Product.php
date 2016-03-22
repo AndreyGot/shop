@@ -49,6 +49,26 @@ class Product
      * @ORM\OneToMany(targetEntity="ValueProduct", mappedBy="product")
      */
     private $valueProducts;
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->valueProducts = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    public function toArray()
+    {
+        return array('id'           => $this->getId(), 
+                     'name'         => $this->getName(),
+                     'price'        => $this->getPrice(),
+                     'description'  => $this->getDescription(),
+                     'categoryName' => $this->getCategory()->getName(),
+                     'category_id'  => $this->getCategoryId(),
+                     // 'valueProducts'=> $this->getValueProducts(),
+                     );
+
+    }
 
     /**
      * Get id
@@ -173,13 +193,6 @@ class Product
     public function getCategory()
     {
         return $this->category;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->valueProducts = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**

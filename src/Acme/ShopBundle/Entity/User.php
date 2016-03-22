@@ -69,6 +69,18 @@ class User
         $this->bills = new ArrayCollection();
     }
 
+    public function toArray()
+    {
+        return array('id'      => $this->getId(), 
+                     'status'  => $this->getStatus(),
+                     'name'    => $this->getName(),
+                     'password'=> $this->getPassword(),
+                     'phone'   => $this->getPhone(),
+                     'address' => $this->getAddress(),
+                     );
+
+    }
+
     /**
      * Get id
      *

@@ -8,15 +8,15 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Acme\ShopBundle\Base\MainApiController;
 
 /**
- * Product controller.
+ * Contact controller.
  *
- * @Route("/product")
+ * @Route("/contact")
  */
-class ProductController extends MainApiController   
+class ContactController extends MainApiController   
 {
     /**
-     * Lists all Product entities.
-     * @Route("", name="product")
+     * Lists all Contact entities.
+     * @Route("", name="contact")
      * @Method("GET")
      */
     public function indexAction()
@@ -25,7 +25,7 @@ class ProductController extends MainApiController
     }
 
     /**
-     * Edit a new Product entity.
+     * Edit a new Contact entity.
      * @Route("/{id}", defaults={"_format"="json"}, requirements={"_method"="PUT", "id"="[\d-]+"})
      * @Method("PUT")
      */
@@ -35,7 +35,7 @@ class ProductController extends MainApiController
     }
 
     /**
-     * Creates a new Product entity.
+     * Creates a new Contact entity.
      * @Route("", defaults={"_format"="json"}, requirements={"_method"="POST"})
      * @Method("POST")
      */
@@ -45,7 +45,7 @@ class ProductController extends MainApiController
     }
 
     /**
-     * Delete a new Product entity.
+     * Delete a new Contact entity.
      * @Route("/{id}", defaults={"_format"="json"}, requirements={"_method"="DELETE", "id"="[\d-]+"})
      * @Method("DELETE")
      */

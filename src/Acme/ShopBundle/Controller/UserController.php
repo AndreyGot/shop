@@ -17,7 +17,7 @@ class UserController extends MainApiController
     /**
      * Lists all User entities.
      *
-     * @Route("/", name="user")
+     * @Route("", name="user")
      * @Method("GET")
      */
     public function indexAction()

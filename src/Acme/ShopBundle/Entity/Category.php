@@ -6,7 +6,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Category
- * @ORM\Table(name="category")
+ * @ORM\Table(name="category",
+ *  uniqueConstraints={@ORM\UniqueConstraint(name="NAME", columns={"name"})})
  * @ORM\Entity(repositoryClass="Acme\ShopBundle\Repository\CategoryRepository")
  */
 class Category
@@ -38,6 +39,14 @@ class Category
     public function __construct()
     {
         $this->products = new ArrayCollection();
+    }
+
+    public function toArray ()
+    {
+        return array(
+            'id'   => $this->getId(),
+            'name' => $this->getName()
+            );
     }
 
     /**
