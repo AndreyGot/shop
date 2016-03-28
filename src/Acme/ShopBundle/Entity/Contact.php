@@ -56,9 +56,7 @@ class Contact
                      'phone'     => $this->getPhone(),
                      'address'   => $this->getAddress(),
                      'mail'      => $this->getMail(),
-                     // 'valueProducts'=> $this->getValueProducts(),
                      );
-
     }
 
 

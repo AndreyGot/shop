@@ -1,0 +1,84 @@
+ <div ng-show="!currentBill">
+  <div class="row">
+    <div class="col-xs-offset-1 col-xs-6">
+      <table class="table table-striped" >
+      <tr>
+        <th>Id</th>
+        <th>userId</th>
+        <th>created</th>
+      </tr>
+        <tr 
+          ng-repeat="bill in bills" 
+          style="border: 1px solid green;" 
+          ng-click="editAndShowBill(bill)">
+          <!-- ng-click="editCategory(category)" -->
+          <td>
+            <img ng-src="/image/edit_25x25.png" alt="Description" />
+            [[bill.id]]
+          </td>
+          <td>[[bill.user_id]]</td>
+          <td>[[bill.created]]</td>
+          <!-- <td>[[bill.description]]</td> -->
+        </tr>
+      </table>
+    </div>
+  </div>
+  
+
+  <button class="btn btn-info" ng-click="addBill()">
+    Add new Bill
+  </button>
+ </div>
+
+<div ng-show="currentBill">
+  <div class="row">
+    <div class="col-xs-9">
+      <div class="row">
+        <div class="col-xs-offset-1 col-xs-2">
+          <p>Номер Cчета</p>
+        </div>
+        <div class="col-xs-2">
+          [[bill.id]]
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-xs-offset-1 col-xs-2">
+          <p>Id пользователя</p>
+        </div>
+        <div class="col-xs-2">
+          <input type="text" ng-model="currentBill.user_id"/>
+        </div>
+      </div>
+<!-- 
+      <div class="row">
+        <div class="col-xs-offset-1 col-xs-2">
+          <p>дата создания</p>
+        </div>
+        <div class="col-xs-2">
+          <input type="text" ng-model="currentBill.created"/>
+        </div>
+      </div> -->
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-offset-1 col-xs-1">
+      <button class="btn btn-success" ng-click="saveBill(currentBill)">
+         SAVE
+      </button>
+    </div>
+    <div class="col-xs-1">
+      <button class="btn btn-danger" ng-click="deleteBill(currentBill)">
+        Delete
+      </button>
+    </div>
+    <div class="col-xs-1">
+      <button class="btn btn-default" ng-click="back()">
+        BACK
+      </button>
+    </div>
+  </div>
+</div>
+

@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * Bill
  * @ORM\Table(name="bill")
  * @ORM\Entity(repositoryClass="Acme\ShopBundle\Repository\BillRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class Bill
 {
@@ -37,12 +38,42 @@ class Bill
     private $valueProducts;
 
     /**
+     * @ORM\Column(name="created", type="datetime")
+     */
+    protected $created;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->valueProducts = new ArrayCollection();
     }
+
+    //* @ORM\PrePersist
+    
+    // private function prePersist () 
+    // {
+    //     if ($this->getCreated() === null) {
+    //         $this->setCreated(new \DateTime('now'));
+    //     }
+    // }
+    public function normalDateFormat()
+    {
+        $date = $this->getCreated()->getTimestamp();
+        return date('d-m-Y H:i:s', $timestamp = $date);
+    }
+
+        public function toArray()
+    {
+        return array(
+            'id'   => $this->getId(),
+            'user_id' => $this->getUserId(),
+            'created' => $this->normalDateFormat()
+            // get_class_methods($this->getCreated())
+            );
+    }
+
 
     /**
      * Get id
@@ -131,5 +162,29 @@ class Bill
     public function getValueProducts()
     {
         return $this->valueProducts;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return Post
+     * @ORM\PrePersist
+     */
+    public function setCreated()
+    {
+        $this->created = new \DateTime('now');
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
     }
 }
