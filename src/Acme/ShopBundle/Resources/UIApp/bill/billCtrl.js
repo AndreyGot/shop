@@ -9,14 +9,14 @@ billCtrl = function ($scope,$http,Restangular)
 	}
 	uploadBills();
 
-	// $scope.categories = [];
-	// function uploadCaregories () {
-	// 	var service = Restangular.service('category');
-	// 	service.getList().then(function (response) {
-	// 		$scope.categories = response;
-	// 	});
-	// }
-	// uploadCaregories();
+	$scope.users  = [];
+	function uploadUsers () {
+		var service = Restangular.service('user');
+		service.getList().then(function (response) {
+			$scope.users = response;
+		});
+	}
+	uploadUsers();
 
 	$scope.currentBill = null;
 	$scope.editAndShowBill = function (bill) {
@@ -57,6 +57,10 @@ billCtrl = function ($scope,$http,Restangular)
 		$scope.back();
 	};
 
+	$scope.userChanged = function (user, bill) {
+		bill.userName = user.name;
+	};
+
 	$scope.saveBill = function (bill) {
 		Restangular.restangularizeElement(null, bill, 'bill');
 		if (bill.id) {
@@ -65,6 +69,7 @@ billCtrl = function ($scope,$http,Restangular)
 		bill.save().then(function (data) {
 			bill.edit         = false;
 			bill.id           = data.id;
+			bill.created      = data.created;
 			$scope.back();
 		});
 	};

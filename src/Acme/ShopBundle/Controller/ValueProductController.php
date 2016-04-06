@@ -16,7 +16,7 @@ class ValueProductController extends MainApiController
 {
     /**
      * Lists all valueProduct entities.
-     * @Route("/", name="valueProduct")
+     * @Route("", name="valueProduct")
      * @Method("GET")
      */
     public function indexAction()

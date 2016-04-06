@@ -47,6 +47,15 @@ class ValueProduct
      */
     private $value;
 
+    public function toArray()
+    {
+        return array('id'        => $this->getId(), 
+                     'bill_id'   => $this->getBillId(),
+                     'product_id'=> $this->getProductId(),
+                     'value'     => $this->getValue(),
+                     );
+    }
+
     /**
      * Get id
      *

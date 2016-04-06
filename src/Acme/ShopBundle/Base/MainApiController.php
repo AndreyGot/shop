@@ -57,7 +57,7 @@ class MainApiController extends Controller
         }
         $entity = $em->getRepository("AcmeShopBundle:{$currentEntityName}")->findOneById($id);
         if (!$entity) {
-            return ApiResponse::bad('Unable to find Category entity.');
+            return ApiResponse::bad("Unable to find {$currentEntityName} entity.");
         }
         
         $entityForm = $this->getCurrentForm($currentEntityName);
@@ -115,7 +115,7 @@ class MainApiController extends Controller
         }
         $entity = $em->getRepository("AcmeShopBundle:{$currentEntityName}")->findOneById($id);
         if (!$entity) {
-            return ApiResponse::bad('Unable to find Category entity.');
+            return ApiResponse::bad("Unable to find {$currentEntityName} entity.");
         }
         $oldEntity = clone($entity);        
         $em->remove($entity);
@@ -157,6 +157,20 @@ class MainApiController extends Controller
           $errorsArr[] = $error->getMessage();
         }
         return $errorsArr;
+    }
+
+    public function viewAction (Request $request, $id) {
+        $em = $this->getDoctrine()->getManager();
+        $currentEntityName = $this->getCurrentEntityName();
+        if (!$currentEntityName) {
+         return ApiResponse::bad('Controller name is not valid (it is editAction).');
+        }
+        $entity = $em->getRepository("AcmeShopBundle:{$currentEntityName}")->findOneById($id);
+        if (!$entity) {
+         return ApiResponse::bad("Unable to find {$currentEntityName} entity.");
+        }
+
+        return ApiResponse::ok($entity->toArray());       
     }
 }
 

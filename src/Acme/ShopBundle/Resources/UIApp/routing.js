@@ -29,5 +29,15 @@ angular.module('fastFood').config(function($stateProvider, $urlRouterProvider) {
       url: '/user',
       templateUrl: '/user/index.html',
       controller: usersCtrl
+    })
+    .state('main.bill', {
+      url: '/bill',
+      templateUrl: '/bill/index.html',
+      controller: billCtrl
+    })
+        .state('main.valueProduct', {
+      url: '/value-product',
+      templateUrl: '/valueProduct/index.html',
+      controller: valueProductCtrl
     });
 });

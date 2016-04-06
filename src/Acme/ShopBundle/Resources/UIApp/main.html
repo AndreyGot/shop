@@ -1,9 +1,11 @@
 <div style="border: 1px solid blue; text-align: center;">
   <div class="nav nav-pills">
   	<button class="btn btn-default" ui-sref="main">Home Page</button>
-    <button class="btn btn-default" ui-sref="main.user">Users</button>
-    <button class="btn btn-default" ui-sref="main.product">Food</button>
+    <button class="btn btn-default" ui-sref="main.user" ng-show = "currentUser.isAdmin()">Users</button>
+    <button class="btn btn-default" ui-sref="main.product">Foods</button>
     <button class="btn btn-default" ui-sref="main.category">Categories</button>
+    <button class="btn btn-default" ui-sref="main.bill">Bills</button>
+    <button class="btn btn-default" ui-sref="main.valueProduct">valueProducts</button>
     <button class="btn btn-default" ui-sref="main.contact">Contacts</button>
   </div>
 </div>

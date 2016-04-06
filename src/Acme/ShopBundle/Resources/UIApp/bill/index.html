@@ -5,6 +5,7 @@
       <tr>
         <th>Id</th>
         <th>userId</th>
+        <th>userName</th>
         <th>created</th>
       </tr>
         <tr 
@@ -16,7 +17,8 @@
             <img ng-src="/image/edit_25x25.png" alt="Description" />
             [[bill.id]]
           </td>
-          <td>[[bill.user_id]]</td>
+          <td>[[bill.userId]]</td>
+          <td>[[bill.userName]]</td>
           <td>[[bill.created]]</td>
           <!-- <td>[[bill.description]]</td> -->
         </tr>
@@ -47,7 +49,18 @@
           <p>Id пользователя</p>
         </div>
         <div class="col-xs-2">
-          <input type="text" ng-model="currentBill.user_id"/>
+          <ui-select 
+            ng-model="currentBill.userId"
+            on-select="userChanged($item, currentBill)">
+              <ui-select-match>
+                [[$select.selected.name]]
+              </ui-select-match>
+              <ui-select-choices 
+                ui-disable-choice = "user.status == 'inactive'" 
+                repeat            = "user.id as user in users | filter: $select.search">
+                <div ng-bind-html="user.name | highlight: $select.search"></div>
+              </ui-select-choices>
+          </ui-select>
         </div>
       </div>
 <!-- 

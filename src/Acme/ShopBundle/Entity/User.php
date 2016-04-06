@@ -4,6 +4,7 @@ namespace Acme\ShopBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User
@@ -23,7 +24,10 @@ class User
     
     /**
      * @var string
-     *
+     * @Assert\Choice(
+     *     choices = { "admin", "user" },
+     *     message = "Choose a valid user type."
+     * )
      * @ORM\Column(name="status", type="string", length=30)
      */
     private $status;

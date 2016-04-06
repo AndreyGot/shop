@@ -53,5 +53,14 @@ class ProductController extends MainApiController
     {
         return parent::deleteAction($request, $id);
     }
-        
+
+    /**
+     * Delete a new Product entity.
+     * @Route("/{id}", defaults={"_format"="json"}, requirements={"_method"="GET", "id"="[\d-]+"})
+     * @Method("GET")
+     */
+    public function viewAction(Request $request, $id)
+    {
+        return parent::viewAction($request, $id);
+    }
 }

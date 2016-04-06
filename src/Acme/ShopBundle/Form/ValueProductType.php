@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class BillType extends AbstractType
+class ValueProductType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,7 +15,9 @@ class BillType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('userId')
+            ->add('bill_id')
+            ->add('product_id')
+            ->add('value')
         ;
     }
     
@@ -25,7 +27,7 @@ class BillType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Acme\ShopBundle\Entity\Bill',
+            'data_class' => 'Acme\ShopBundle\Entity\ValueProduct',
             'csrf_protection' => false,
         ));
     }
