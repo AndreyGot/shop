@@ -19,9 +19,9 @@ class CategoryController extends MainApiController
      * @Route("", name="category")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        return parent::indexAction();
+        return parent::indexAction($request);
     }
 
     /**
@@ -52,5 +52,15 @@ class CategoryController extends MainApiController
     public function deleteAction(Request $request, $id)
     {
         return parent::deleteAction($request, $id);
+    }
+
+    /**
+     * Show Category entity.
+     * @Route("/{id}", defaults={"_format"="json"}, requirements={"_method"="GET", "id"="[\d-]+"})
+     * @Method("GET")
+     */
+    public function viewAction(Request $request, $id)
+    {
+        return parent::viewAction($request, $id);
     }
 }

@@ -19,9 +19,9 @@ class BillController extends MainApiController
      * @Route("", name="bill")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        return parent::indexAction();
+        return parent::indexAction($request);
     }
 
     /**

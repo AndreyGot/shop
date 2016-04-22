@@ -25,15 +25,17 @@ class MainApiController extends Controller
         return "Acme\ShopBundle\Entity\\{$entityName}";
     }
 
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $currentEntityName = $this->getCurrentEntityName();
         if (!$currentEntityName) {
             return ApiResponse::bad('Controller name is not valid (it is indexAction).');
         }
 
+        $search     = $request->query->all();
         $em         = $this->getDoctrine()->getManager();
-        $entities   = $em->getRepository("AcmeShopBundle:{$currentEntityName}")->findAll();
+        $repository = $em->getRepository("AcmeShopBundle:{$currentEntityName}");
+        $entities   = $repository->paginatedSearch($search);
         $ret        = [];
         
         foreach ($entities as $entity) {

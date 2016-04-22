@@ -19,9 +19,9 @@ class ProductController extends MainApiController
      * @Route("", name="product")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        return parent::indexAction();
+        return parent::indexAction($request);
     }
 
     /**
@@ -55,7 +55,7 @@ class ProductController extends MainApiController
     }
 
     /**
-     * Delete a new Product entity.
+     * Show Product entity.
      * @Route("/{id}", defaults={"_format"="json"}, requirements={"_method"="GET", "id"="[\d-]+"})
      * @Method("GET")
      */

@@ -20,9 +20,9 @@ class UserController extends MainApiController
      * @Route("", name="user")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        return parent::indexAction();
+        return parent::indexAction($request);
     }
     
     /**

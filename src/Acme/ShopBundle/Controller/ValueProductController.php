@@ -19,9 +19,9 @@ class ValueProductController extends MainApiController
      * @Route("", name="valueProduct")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        return parent::indexAction();
+        return parent::indexAction($request);
     }
 
     /**

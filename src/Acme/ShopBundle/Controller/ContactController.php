@@ -19,9 +19,9 @@ class ContactController extends MainApiController
      * @Route("", name="contact")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        return parent::indexAction();
+        return parent::indexAction($request);
     }
 
     /**

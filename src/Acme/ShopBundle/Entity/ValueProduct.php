@@ -49,10 +49,11 @@ class ValueProduct
 
     public function toArray()
     {
-        return array('id'        => $this->getId(), 
-                     'bill_id'   => $this->getBillId(),
-                     'product_id'=> $this->getProductId(),
-                     'value'     => $this->getValue(),
+        return array('id'           => $this->getId(), 
+                     'bill_id'      => $this->getBillId(),
+                     'product_id'   => $this->getProductId(),
+                     'product_name' => $this->getProduct()->getName(),
+                     'value'        => $this->getValue(),
                      );
     }
 
