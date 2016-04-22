@@ -58,19 +58,15 @@ class Bill
     //         $this->setCreated(new \DateTime('now'));
     //     }
     // }
-    public function normalDateFormat()
-    {
-        $date = $this->getCreated()->getTimestamp();
-        return date('d-m-Y H:i:s', $timestamp = $date);
-    }
 
-        public function toArray()
+
+    public function toArray()
     {
         return array(
             'id'   => $this->getId(),
             'user_id' => $this->getUserId(),
-            'created' => $this->normalDateFormat()
-            // get_class_methods($this->getCreated())
+            'user_name' => $this->getUser()->getName(),
+            'created' => $this->getCreated()->format('d-m-Y H:i:s')
             );
     }
 
@@ -173,8 +169,9 @@ class Bill
      */
     public function setCreated()
     {
-        $this->created = new \DateTime('now');
-
+        if ($this->created === null) {
+            $this->created = new \DateTime('now');
+        }
         return $this;
     }
 

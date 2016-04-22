@@ -58,7 +58,7 @@ billCtrl = function ($scope,$http,Restangular)
 	};
 
 	$scope.userChanged = function (user, bill) {
-		bill.userName = user.name;
+		bill.user_name = user.name;
 	};
 
 	$scope.saveBill = function (bill) {

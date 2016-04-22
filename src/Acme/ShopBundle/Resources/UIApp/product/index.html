@@ -1,4 +1,4 @@
- <div ng-show="!currentProduct">
+<div ng-show="!currentProduct">
   <div class="row">
     <div class="col-xs-offset-1 col-xs-6">
       <table class="table table-striped" >
@@ -20,7 +20,7 @@
           <td>[[product.name]]</td>
           <td>[[product.price]]</td>
           <td>[[product.description]]</td>
-          <td>[[product.categoryName]]</td>
+          <td>[[product.category_name]]</td>
         </tr>
       </table>
     </div>
@@ -30,7 +30,7 @@
   <button class="btn btn-info" ng-click="addProduct()">
     Add new Product
   </button>
- </div>
+</div>
 
 <div ng-show="currentProduct">
   <div class="row">

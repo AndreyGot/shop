@@ -63,7 +63,7 @@ class Product
                      'name'         => $this->getName(),
                      'price'        => $this->getPrice(),
                      'description'  => $this->getDescription(),
-                     'categoryName' => $this->getCategory()->getName(),
+                     'category_name' => $this->getCategory()->getName(),
                      'category_id'  => $this->getCategoryId(),
                      // 'valueProducts'=> $this->getValueProducts(),
                      );
