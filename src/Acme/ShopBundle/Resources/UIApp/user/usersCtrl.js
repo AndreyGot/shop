@@ -9,6 +9,8 @@ usersCtrl = function ($scope,$http,Restangular)
 	}
 	uploadUsers();
 
+	$scope.typeArr = [{value:'admin', title:'Admin'}, {value:'client', title:'Client'}];
+
 	$scope.currentUser = null;
 	$scope.editAndShowUser = function (user) {
 		$scope.currentUser = user;

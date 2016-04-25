@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Value
- * @ORM\Table(name="value")
+ * @ORM\Table(name="value_product")
  * @ORM\Entity(repositoryClass="Acme\ShopBundle\Repository\ValueRepository")
  */
 class ValueProduct

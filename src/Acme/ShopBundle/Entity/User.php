@@ -5,13 +5,16 @@ namespace Acme\ShopBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * User
  * @ORM\Table(name="user")
+ * @UniqueEntity(fields="email", message="Email already taken")
  * @ORM\Entity(repositoryClass="Acme\ShopBundle\Repository\UserRepository")
  */
-class User
+class User implements UserInterface
 {
     /**
      * @var integer
@@ -25,13 +28,13 @@ class User
     /**
      * @var string
      * @Assert\Choice(
-     *     choices = { "admin", "user" },
+     *     choices = { "admin", "client" },
      *     message = "Choose a valid user type."
      * )
-     * @Assert\NotBlank(message="Status is required.")
-     * @ORM\Column(name="status", type="string", length=30)
+     * @Assert\NotBlank(message="Type is required.")
+     * @ORM\Column(name="type", type="string", length=30)
      */
-    private $status;
+    private $type;
     
     /**
      * @var string
@@ -42,9 +45,22 @@ class User
     private $name;
 
     /**
+     * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\Email(message = "The email '{{ value }}' is not a valid email.", checkMX = true)
+     * @Assert\NotBlank(message="Email is required.")
+     */
+    private $email;
+
+    /**
+     * @Assert\NotBlank(message="Plain password is required.")
+     * @Assert\Length(max=4096)
+     */
+    private $plainPassword;
+
+    /**
      * @var string
      *
-     * @ORM\Column(name="password", type="string", length=255)
+     * @ORM\Column(type="string", length=64)
      */
     private $password;
 
@@ -69,24 +85,48 @@ class User
      */
     private $bills;
 
+    private $salt;
+
     /**
      * Constructor
      */
     public function __construct()
     {
         $this->bills = new ArrayCollection();
+        $this->salt  = md5(uniqid(null, true));
     }
 
     public function toArray()
     {
         return array('id'      => $this->getId(), 
-                     'status'  => $this->getStatus(),
+                     'type'    => $this->getType(),
                      'name'    => $this->getName(),
-                     'password'=> $this->getPassword(),
                      'phone'   => $this->getPhone(),
                      'address' => $this->getAddress(),
+                     'email'   => $this->getEmail(),
                      );
 
+    }
+
+    public function getUsername()
+    {
+        return $this->getName();
+    }
+
+    public function getSalt()
+    {
+        return null;
+        return $this->salt;
+    }
+
+
+    public function getRoles()
+    {
+        return array();
+    }
+    public function eraseCredentials()
+    {
+        return 'eraseCredentials';
     }
 
     /**
@@ -99,28 +139,6 @@ class User
         return $this->id;
     }
 
-    /**
-     * Set status
-     *
-     * @param string $status
-     * @return User
-     */
-    public function setStatus($status)
-    {
-        $this->status = $status;
-
-        return $this;
-    }
-
-    /**
-     * Get status
-     *
-     * @return string 
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
 
     /**
      * Set name
@@ -245,5 +263,74 @@ class User
     public function getBills()
     {
         return $this->bills;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     * @return User
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string 
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set type
+     *
+     * @param string $type
+     * @return User
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return string 
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Set plainPassword
+     *
+     * @param string $plainPassword
+     * @return User
+     */
+    public function setPlainPassword($plainPassword)
+    {
+        $this->plainPassword = $plainPassword;
+
+        return $this;
+    }
+
+    /**
+     * Get plainPassword
+     *
+     * @return string 
+     */
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
     }
 }

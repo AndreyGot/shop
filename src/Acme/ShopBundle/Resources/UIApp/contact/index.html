@@ -1,101 +1,105 @@
-<div ng-show="!currentContact">
-  <div class="row">
-    <div class="col-xs-offset-1 col-xs-6">
-      <table class="table table-striped" >
-      <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>phone</th>
-        <th>address</th>
-        <th>mail</th>
-      </tr>
-        <tr 
-          ng-repeat="contact in contacts" 
-          style="border: 1px solid green;" 
-          ng-click="editAndShowContact(contact)">
-          <td>
-            <img ng-src="/image/edit_25x25.png" alt="Description" />
-            [[contact.id]]
-          </td>
-          <td>[[contact.restaurant]]</td>
-          <td>[[contact.phone]]</td>
-          <td>[[contact.address]]</td>
-          <td>[[contact.mail]]</td>
+<div>
+  <div ng-show="!currentContact">
+    <div class="row">
+      <div class="col-xs-offset-1 col-xs-6">
+        <table class="table table-striped" >
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>phone</th>
+          <th>address</th>
+          <th>mail</th>
         </tr>
-      </table>
+          <tr 
+            ng-repeat="contact in contacts" 
+            style="border: 1px solid green;" 
+            ng-click="editAndShowContact(contact)">
+            <td>
+              <img ng-src="/image/edit_25x25.png" alt="Description" />
+              [[contact.id]]
+            </td>
+            <td>[[contact.restaurant]]</td>
+            <td>[[contact.phone]]</td>
+            <td>[[contact.address]]</td>
+            <td>[[contact.mail]]</td>
+          </tr>
+        </table>
+      </div>
     </div>
+
+    <button class="btn btn-info" 
+            ng-click="addContact()"
+            ng-show = "currentUser.isAdmin()">
+      Add new Contact
+    </button>
   </div>
 
-  <button class="btn btn-info" ng-click="addContact()">
-    Add new Contact
-  </button>
-</div>
+  <div ng-show="currentContact">
+    <div class="row">
+      <div class="col-xs-9">
+        <div class="row">
+          <div class="col-xs-offset-1 col-xs-2">
+            <p>Id</p>
+          </div>
+          <div class="col-xs-2">
+            [[currentContact.id]]
+          </div>
+        </div>
 
-<div ng-show="currentContact">
-  <div class="row">
-    <div class="col-xs-9">
-      <div class="row">
-        <div class="col-xs-offset-1 col-xs-2">
-          <p>Id</p>
+        <div class="row">
+          <div class="col-xs-offset-1 col-xs-2">
+            <p>Ресторан</p>
+          </div>
+          <div class="col-xs-2">
+            <input type="text" ng-model="currentContact.restaurant"/>
+          </div>
         </div>
-        <div class="col-xs-2">
-          [[currentContact.id]]
-        </div>
-      </div>
 
-      <div class="row">
-        <div class="col-xs-offset-1 col-xs-2">
-          <p>Ресторан</p>
+        <div class="row">
+          <div class="col-xs-offset-1 col-xs-2">
+            <p>Телефон</p>
+          </div>
+          <div class="col-xs-2">
+            <input type="text" ng-model="currentContact.phone"/>
+          </div>
         </div>
-        <div class="col-xs-2">
-          <input type="text" ng-model="currentContact.restaurant"/>
-        </div>
-      </div>
 
-      <div class="row">
-        <div class="col-xs-offset-1 col-xs-2">
-          <p>Телефон</p>
+        <div class="row">
+          <div class="col-xs-offset-1 col-xs-2">
+            <p>Адрес</p>
+          </div>
+          <div class="col-xs-2">
+            <input type="text" ng-model="currentContact.address"/>
+          </div>
         </div>
-        <div class="col-xs-2">
-          <input type="text" ng-model="currentContact.phone"/>
-        </div>
-      </div>
 
-      <div class="row">
-        <div class="col-xs-offset-1 col-xs-2">
-          <p>Адрес</p>
-        </div>
-        <div class="col-xs-2">
-          <input type="text" ng-model="currentContact.address"/>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-xs-offset-1 col-xs-2">
-          <p>@-mail</p>
-        </div>
-        <div class="col-xs-2">
-          <input type="text" ng-model="currentContact.mail"/>
+        <div class="row">
+          <div class="col-xs-offset-1 col-xs-2">
+            <p>@-mail</p>
+          </div>
+          <div class="col-xs-2">
+            <input type="text" ng-model="currentContact.mail"/>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="row">
-    <div class="col-xs-offset-1 col-xs-1">
-      <button class="btn btn-success" ng-click="saveContact(currentContact)">
-         SAVE
-      </button>
-    </div>
-    <div class="col-xs-1">
-      <button class="btn btn-danger" ng-click="deleteContact(currentContact)">
-        Delete
-      </button>
-    </div>
-    <div class="col-xs-1">
-      <button class="btn btn-default" ng-click="back()">
-        BACK
-      </button>
+    <div class="row">
+      <div class="col-xs-offset-1 col-xs-1">
+        <button class="btn btn-success" ng-click="saveContact(currentContact)">
+           SAVE
+        </button>
+      </div>
+      <div class="col-xs-1">
+        <button class="btn btn-danger" ng-click="deleteContact(currentContact)">
+          Delete
+        </button>
+      </div>
+      <div class="col-xs-1">
+        <button class="btn btn-default" ng-click="back()">
+          BACK
+        </button>
+      </div>
     </div>
   </div>
 </div>

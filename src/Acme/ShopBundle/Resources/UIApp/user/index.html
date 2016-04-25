@@ -48,19 +48,28 @@
       </div>
       <div class="row">
         <div class="col-xs-offset-1 col-xs-2">
-          <p>status</p>
+          <p>type</p>
         </div>
         <div class="col-xs-2">
-          <ui-select ng-model="currentUser.status">
+          <ui-select 
+            ng-model="currentUser.type">
               <ui-select-match>
-                [[$select.selected.name]]
+                [[$select.selected.title]]
               </ui-select-match>
               <ui-select-choices 
-                ui-disable-choice = "status.status == 'inactive'" 
-                repeat            = "status.name as status in statusArr | filter: $select.search">
-                <div ng-bind-html="status.name | highlight: $select.search"></div>
+                repeat            = "type.value as type in typeArr | filter: $select.search">
+                <div ng-bind-html="type.title | highlight: $select.search"></div>
               </ui-select-choices>
           </ui-select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-offset-1 col-xs-2">
+          <p>email</p>
+        </div>
+        <div class="col-xs-2">
+          <input type="text" ng-model="currentUser.email"/>
         </div>
       </div>
 
@@ -78,7 +87,7 @@
           <p>password</p>
         </div>
         <div class="col-xs-2">
-          <input type="text" ng-model="currentUser.password"/>
+          <input type="text" ng-model="currentUser.plainPassword"/>
         </div>
       </div>
 
