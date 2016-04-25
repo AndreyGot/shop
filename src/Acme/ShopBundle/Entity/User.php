@@ -28,6 +28,7 @@ class User
      *     choices = { "admin", "user" },
      *     message = "Choose a valid user type."
      * )
+     * @Assert\NotBlank(message="Status is required.")
      * @ORM\Column(name="status", type="string", length=30)
      */
     private $status;
@@ -35,6 +36,7 @@ class User
     /**
      * @var string
      *
+     * @Assert\NotBlank(message="Name is required.")
      * @ORM\Column(name="name", type="string", length=30)
      */
     private $name;
@@ -49,6 +51,7 @@ class User
     /**
      * @var string
      *
+     * @Assert\NotBlank(message="Phone is required.")
      * @ORM\Column(name="phone", type="string", length=255)
      */
     private $phone;
@@ -56,6 +59,7 @@ class User
     /**
      * @var string
      *
+     * @Assert\NotBlank(message="Address is required.")
      * @ORM\Column(name="address", type="string", length=255)
      */
     private $address;

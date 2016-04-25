@@ -1,28 +1,29 @@
-<div style="border: 1px solid blue; text-align: center;">
-  <div class="nav nav-pills">
-  	<button class="btn btn-default" ui-sref="main">Home Page</button>
-    <button class="btn btn-default" ui-sref="main.user" ng-show = "currentUser.isAdmin()">Users</button>
-    <button class="btn btn-default" ui-sref="main.product">Foods</button>
-    <button class="btn btn-default" ui-sref="main.category">Categories</button>
-    <button class="btn btn-default" ui-sref="main.bill">Bills</button>
-    <button class="btn btn-default" ui-sref="main.valueProduct">valueProducts</button>
-    <button class="btn btn-default" ui-sref="main.contact">Contacts</button>
-  </div>
-</div>
-
-<div ui-view>
-	<div>
-		<h3>Some kinds of food</h3>
-	  <a href="http://odessarest.com.ua/menu">site restaurant</a>
+<div>
+	<div align="right">
+		<button class="btn btn-default" ui-sref="main.signUp">Sign Up</button>
+		<button class="btn btn-default" ui-sref="main">Log In</button>
+		<img ng-src="/image/shopCart_80x80.png" alt="Description1"/>
 	</div>
-	<div>
-<!-- 		<form method="POST" action="some URL">
-			<div>LogIn:</div>			
-			<input type="text" name="LogIn"><Br>
-			<div>Password:</div>
-			<input type="password" name="password"><Br>
-			<input type="submit" value="Log in">
-			<input type="submit" value="Registration">
-		</form> -->
+	<div style="border: 1px solid blue; text-align: center;">
+	  <div class="nav nav-pills">
+	  	<button class="btn btn-default" ui-sref="main">Home Page</button>
+	    <button class="btn btn-default" ui-sref="main.user" 
+	    				ng-show = "currentUser.isAdmin()">Users</button>
+	    <button class="btn btn-default" ui-sref="main.product" 
+	    				ng-show = "currentUser.isAdmin()">Foods</button>
+	    <button class="btn btn-default" ui-sref="main.category">Categories</button>
+	    <button class="btn btn-default" ui-sref="main.bill" 
+	    				ng-show = "currentUser.isAdmin()">Bills</button>
+	    <button class="btn btn-default" ui-sref="main.valueProduct" 
+	    				ng-show = "currentUser.isAdmin()">valueProducts</button>
+	    <button class="btn btn-default" ui-sref="main.contact">Contacts</button>
+	  </div>
+	</div>
+
+	<div ui-view>
+		<div>
+			<h3>Some kinds of food</h3>
+		  <a href="http://odessarest.com.ua/menu">site restaurant</a>
+		</div>
 	</div>
 </div>

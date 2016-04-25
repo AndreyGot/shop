@@ -1,4 +1,4 @@
-valueProductCtrl = function ($scope,$http,Restangular)
+valueProductCtrl = function ($scope, $http, Restangular)
 {
 	$scope.valueProducts  = [];
 	function uploadValueProducts () {
@@ -56,6 +56,7 @@ valueProductCtrl = function ($scope,$http,Restangular)
 		valueProduct.save().then(function (data) {
 			valueProduct.edit         = false;
 			valueProduct.id           = data.id;
+			valueProduct.product_name = data.product_name;
 			$scope.back();
 		});
 	};

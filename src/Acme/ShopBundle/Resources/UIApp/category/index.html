@@ -1,55 +1,24 @@
- <div ng-show="!currentCategory">
-  <div class="row">
-    <div class="col-xs-offset-1 col-xs-6">
-      <table class="table table-striped" >
-        <tr 
-          ng-repeat="category in categories" 
-          style="border: 1px solid green;" 
-          ng-click="editAndShowCategory(category)">
-          <td>[[category.id]]</td>
-          <td>
-            <div>
-              <img ng-src="/image/edit_25x25.png" alt="Description" />
-              [[category.name]]
-            </div>
-          </td>
-        </tr>
-      </table>
-    </div>
-  </div>
-  <button class="btn btn-info" ng-click="addCategory()">
+<div>
+  <button 
+    class    = "btn btn-info" 
+    ng-click = "addCategory()"
+    ui-sref  = "main.category.new">
     Add new Category
   </button>
- </div>
 
- <div ng-show="currentCategory">
-   <div class="row">
-     <div class="col-xs-offset-1 col-xs-1">
-     [[currentCategory.previousCategory.id]]
-     </div>
-     <div class="col-xs-2">
-     <input
-      type="text"
-      ng-model="currentCategory.previousCategory.name"
-     />
-     </div>
-   </div>
-
+  <div ui-view>
     <div class="row">
-    <div class="col-xs-offset-1 col-xs-1">
-      <button class="btn btn-success" ng-click="saveCategory(currentCategory)">
-         SAVE
-      </button>
-    </div>
-    <div class="col-xs-1">
-      <button class="btn btn-danger" ng-click="deleteCategory(currentCategory)">
-        Delete
-      </button>
-    </div>
-    <div class="col-xs-1">
-      <button class="btn btn-default" ng-click="back()">
-        BACK
-      </button>
-    </div>
-   </div>
- </div>
+      <div 
+        class     = "col-md-2" 
+        ng-repeat = "category in categories" style="border: 1px solid orange;"
+        ng-click  = "editCategoryOrShowProducts(category)">
+        <div class="row">
+          <div class="col-md-4">
+            <img ng-src="/image/categotyFood/[[category.name]].png" alt="Description" />
+            [[category.name]]
+          </div>
+        </div>
+      </div>
+    </div>  
+  </div>
+</div>

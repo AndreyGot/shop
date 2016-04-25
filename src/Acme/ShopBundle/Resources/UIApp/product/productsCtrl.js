@@ -1,23 +1,7 @@
-productsCtrl = function ($scope,$http,Restangular)
+productsCtrl = function ($scope, $http, Restangular, products, categories)
 {
-	$scope.products  = [];
-	function uploadProducts () {
-		var service = Restangular.service('product');
-		service.getList().then(function (response) {
-			$scope.products = response;
-		});
-	}
-	uploadProducts();
-
-	$scope.categories = [];
-	function uploadCaregories () {
-		var service = Restangular.service('category');
-		service.getList().then(function (response) {
-			$scope.categories = response;
-		});
-	}
-	uploadCaregories();
-
+	$scope.categories = categories;
+	$scope.products   = products;
 	$scope.currentProduct = null;
 	$scope.editAndShowProduct = function (product) {
 		$scope.currentProduct = product;
@@ -65,9 +49,18 @@ productsCtrl = function ($scope,$http,Restangular)
 		product.save().then(function (data) {
 			product.edit         = false;
 			product.id           = data.id;
-			product.categoryName = data.categoryName;
+			product.category_name = data.category_name;
 			$scope.back();
 		});
 	};
+};
+
+productsCtrl.resolve = {
+	products : function (Restangular, $stateParams) {
+		return Restangular.service('product').getList($stateParams);
+	},
+	categories : function (Restangular) {
+		return Restangular.service('category').getList();
+	}
 };
 angular.module('fastFood').controller('productsCtrl',productsCtrl);

@@ -1,0 +1,33 @@
+<div>
+  <div class="row">
+    <div class="col-xs-offset-1 col-xs-1">
+    [[category.id]]
+    </div>
+    <div class="col-xs-2">
+    <input
+     type="text"
+     ng-model="category.name"
+    />
+    </div>
+  </div>
+
+  <div class="row">
+   <div class="col-xs-offset-1 col-xs-1">
+     <button class="btn btn-success" ng-click="saveCategory(category)">
+        SAVE
+     </button>
+   </div>
+   <div class="col-xs-1">
+     <button class="btn btn-danger" ng-click="deleteCategory(category)">
+       Delete
+     </button>
+   </div>
+   <div class="col-xs-1">
+     <button 
+     	class   = "btn btn-default" 
+     	ui-sref = "main.category">
+       BACK
+     </button>
+   </div>
+  </div>
+</div> 
