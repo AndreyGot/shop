@@ -5,6 +5,7 @@ namespace Acme\ShopBundle\Base;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Acme\ShopBundle\Base\ApiResponse;
+use Acme\ShopBundle\Event\EntityChangeEvent;
 
 class MainApiController extends Controller
 {
@@ -71,6 +72,14 @@ class MainApiController extends Controller
         $form->submit($data);
         if ($form->isValid()) {
             $this->populateEntityRelations($entity);
+
+            $eventName = strtolower($currentEntityName); 
+            $eventName = "{$eventName}_change";
+
+            $event      = new EntityChangeEvent($this, $entity, $data, 'edit');
+            $dispatcher = $this->get('event_dispatcher'); 
+            $dispatcher->dispatch($eventName, $event);
+
             $em->persist($entity);
             $em->flush();
             return ApiResponse::ok($entity->toArray());
@@ -97,8 +106,17 @@ class MainApiController extends Controller
         $relationFields  = $form->all();
         $data            = array_intersect_key($data, $relationFields);
         $form->submit($data);
+
         if ($form->isValid()) {
             $this->populateEntityRelations($entity);
+
+            $eventName  = strtolower($currentEntityName); 
+            $eventName  = "{$eventName}_change";
+            
+            $event      = new EntityChangeEvent($this, $entity, $data, 'create');
+            $dispatcher = $this->get('event_dispatcher'); 
+            $dispatcher->dispatch($eventName, $event);
+
             $em->persist($entity);
             $em->flush();
            return ApiResponse::ok($entity->toArray());
