@@ -85,6 +85,12 @@ class User implements UserInterface
      */
     private $bills;
 
+        
+    /**
+    * @var string
+    *
+    * @ORM\Column(name="salt", type="string", length=40)
+    */
     private $salt;
 
     /**
@@ -115,10 +121,24 @@ class User implements UserInterface
 
     public function getSalt()
     {
-        return null;
+        if (is_null($this->salt)) {
+        $this->setSalt(bin2hex(openssl_random_pseudo_bytes(16)));
+        }
         return $this->salt;
     }
 
+    /**
+     * Set salt
+     *
+     * @param string $salt
+     * @return User
+     */
+    public function setSalt($salt)
+    {
+        $this->salt = $salt;
+
+        return $this;
+    }
 
     public function getRoles()
     {
@@ -333,4 +353,5 @@ class User implements UserInterface
     {
         return $this->plainPassword;
     }
+
 }
