@@ -1,4 +1,4 @@
-billCtrl = function ($scope,$http,Restangular)
+billCtrl = function ($scope, Restangular)
 {
 	$scope.bills  = [];
 	function uploadBills () {

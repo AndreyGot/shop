@@ -49,24 +49,24 @@ class Bill
     {
         $this->valueProducts = new ArrayCollection();
     }
-
-    //* @ORM\PrePersist
-    
-    // private function prePersist () 
-    // {
-    //     if ($this->getCreated() === null) {
-    //         $this->setCreated(new \DateTime('now'));
-    //     }
-    // }
+    /**
+     * @ORM\PrePersist
+     */
+    public function prePersist () 
+    {
+        if ($this->getCreated() === null) {
+            $this->setCreated(new \DateTime('now'));
+        }
+    }
 
 
     public function toArray()
     {
         return array(
-            'id'   => $this->getId(),
-            'user_id' => $this->getUserId(),
+            'id'        => $this->getId(),
+            'user_id'   => $this->getUserId(),
             'user_name' => $this->getUser()->getName(),
-            'created' => $this->getCreated()->format('d-m-Y H:i:s')
+            'created'   => $this->getCreated()->format('d-m-Y H:i:s')
             );
     }
 
@@ -165,13 +165,10 @@ class Bill
      *
      * @param \DateTime $created
      * @return Post
-     * @ORM\PrePersist
      */
-    public function setCreated()
+    private function setCreated($created)
     {
-        if ($this->created === null) {
-            $this->created = new \DateTime('now');
-        }
+        $this->created = $created;
         return $this;
     }
 
@@ -180,7 +177,7 @@ class Bill
      *
      * @return \DateTime 
      */
-    public function getCreated()
+    private function getCreated()
     {
         return $this->created;
     }

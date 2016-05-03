@@ -15,7 +15,7 @@ class BillType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('userId')
+            ->add('user_id')
         ;
     }
     
