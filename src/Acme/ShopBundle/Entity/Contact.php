@@ -3,6 +3,7 @@
 namespace Acme\ShopBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Contact
@@ -23,28 +24,28 @@ class Contact
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="NameRestaurant is required.")
      * @ORM\Column(name="restaurant", type="string", length=255)
      */
     private $restaurant;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="Phone is required.")
      * @ORM\Column(name="phone", type="string", length=255)
      */
     private $phone;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="Address is required.")
      * @ORM\Column(name="address", type="string", length=255)
      */
     private $address;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="Mail is required.")
      * @ORM\Column(name="mail", type="string", length=255)
      */
     private $mail;

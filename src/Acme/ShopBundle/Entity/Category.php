@@ -2,6 +2,7 @@
 namespace Acme\ShopBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -23,7 +24,7 @@ class Category
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="Name is required.")
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;

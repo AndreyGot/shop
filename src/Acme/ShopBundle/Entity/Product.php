@@ -2,6 +2,7 @@
 namespace Acme\ShopBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Product
@@ -19,22 +20,24 @@ class Product
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="Name is required.")
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
 
     /**
+     * @Assert\NotBlank(message="Price is required.")
      * @ORM\Column(name="price", type="float")
      */
     private $price;
 
     /**
-     * @ORM\Column(name="description", type="text")
+     * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
 
     /**
+     * @Assert\NotBlank(message="CategoryId is required.")
      * @ORM\Column(name="category_id", type="integer")
      */
     private $categoryId;

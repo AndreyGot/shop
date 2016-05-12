@@ -2,6 +2,7 @@
 namespace Acme\ShopBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -22,6 +23,7 @@ class Bill
     private $id;
 
     /**
+     * @Assert\NotBlank(message="UserId is required.")
      * @ORM\Column(name="user_id", type="integer")
      */
     private $userId;
