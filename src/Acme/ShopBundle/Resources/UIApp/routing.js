@@ -10,6 +10,7 @@ angular.module('fastFood').config(function($stateProvider, $urlRouterProvider) {
       templateUrl: '/main.html',
       controller: mainCtrl
     })
+    
     .state('main.category', {
       url         : '/category',
       templateUrl : '/category/index.html',
@@ -28,18 +29,33 @@ angular.module('fastFood').config(function($stateProvider, $urlRouterProvider) {
       controller  : categoryEditCtrl,
       resolve     : categoryEditCtrl.resolveEdit
     })
+    
     .state('main.product', {
       url         : '/product',
       templateUrl : '/product/index.html',
       controller  : productsCtrl,
       resolve     : productsCtrl.resolve
     })
+    .state('main.product.new', {
+      url         : '/new',
+      templateUrl : '/product/productEdit.html',
+      controller  : productEditCtrl,
+      resolve     : productEditCtrl.resolveNew
+    })
+    .state('main.product.edit', {
+      url         : '/edit/:productId',
+      templateUrl : '/product/productEdit.html',
+      controller  : productEditCtrl,
+      resolve     : productEditCtrl.resolveEdit
+    })
+
     .state('main.productCategory', {
       url         : '/product/:categoryId',
       templateUrl : '/product/index.html',
       controller  : productsCtrl,
       resolve     : productsCtrl.resolve
     })
+    
     .state('main.contact', {
       url: '/contact',
       templateUrl: '/contact/index.html',
@@ -55,7 +71,7 @@ angular.module('fastFood').config(function($stateProvider, $urlRouterProvider) {
       templateUrl: '/bill/index.html',
       controller: billCtrl
     })
-        .state('main.valueProduct', {
+    .state('main.valueProduct', {
       url: '/value-product',
       templateUrl: '/valueProduct/index.html',
       controller: valueProductCtrl

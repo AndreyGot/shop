@@ -1,0 +1,130 @@
+<div>
+  <div class="row" ng-form="productEditForm">
+    <div class="col-xs-9">
+      <div class="row">
+        <div class="col-xs-offset-1 col-xs-2">
+          <p>Номер товара</p>
+        </div>
+        <div class="col-xs-2">
+          [[product.id]]
+        </div>
+      </div>
+      
+      <div class="row">
+        <div 
+          class    = "form-group has-feedback"
+          ng-class = "{'has-error' : (productEditForm.productName.$invalid && productEditForm.productName.$dirty)}">
+          <div class="col-xs-offset-1 col-xs-2">
+            <label class="control-label" for="">Имя товара</label>
+          </div>
+          <div class="col-xs-2">
+            <input
+              name        = "productName"
+              ng-model    = "product.name"
+              ng-required = "true" 
+              type        = "text" 
+              class       = "form-control"/>
+          </div>
+          <div 
+            class   = "col-xs-4" 
+            ng-show = "productEditForm.productName.$error.required && productEditForm.productName.$dirty">
+            <div class="help-block">Заполните поле Имя продукта.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div 
+          class    = "form-group has-feedback"
+          ng-class = "{'has-error' : (productEditForm.productPrice.$invalid && productEditForm.productPrice.$dirty)}">
+          <div class="col-xs-offset-1 col-xs-2">
+            <label class="control-label" for="">Цена товара</label>
+          </div>
+          <div class="col-xs-2">
+          <input 
+            type        = "text"
+            class       = "form-control"
+            name        = "productPrice" 
+            ng-model    = "product.price"
+            ng-required = "true"
+            smart-float />
+          </div>
+          <div 
+            class   = "col-xs-4" 
+            ng-show = "productEditForm.productPrice.$error.required && productEditForm.productPrice.$dirty">
+            <div class="help-block">Заполните поле Цена товара.</div>
+          </div>
+          <div 
+            class   = "col-xs-4" 
+            ng-show = "productEditForm.productPrice.$error.float && !productEditForm.productPrice.$error.required && productEditForm.productPrice.$dirty">
+            <div class="help-block">Цена товара не корректна.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class = "form-group has-feedback">
+          <div class="col-xs-offset-1 col-xs-2">
+            <label class="control-label" for="">Описание товара</label>
+          </div>
+          <div class="col-xs-2">
+            <input
+              name     = "productDescription" 
+              ng-model = "product.description"
+              type     = "text" 
+              class    = "form-control"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div 
+          class    = "form-group has-feedback"
+          ng-class = "{'has-error' : (productEditForm.productCategory.$invalid && productEditForm.productCategory.$dirty)}">
+          <div class="col-xs-offset-1 col-xs-2">
+            <label class="control-label" for="">Категория товара</label>
+          </div>
+          <div class="col-xs-2">
+          <ui-select 
+            name = "productCategory"
+            ng-model="product.category_id" 
+            ng-required="true">
+            <ui-select-match>
+              [[$select.selected.name]]
+            </ui-select-match>
+            <ui-select-choices 
+              ui-disable-choice = "category.status == 'inactive'" 
+              repeat            = "category.id as category in categories | filter: $select.search">
+              <div ng-bind-html = "category.name | highlight: $select.search"></div>
+            </ui-select-choices>
+          </ui-select>
+          </div>
+          <div 
+            class   = "col-xs-4" 
+            ng-show = "productEditForm.productCategory.$error.required && productEditForm.productCategory.$dirty">
+            <div class="help-block">Заполните поле Категория товара.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-offset-1 col-xs-1">
+      <button class="btn btn-success" ng-click="saveProduct(product, productEditForm)">
+        <i class="glyphicon glyphicon-save"></i>
+         SAVE
+      </button>
+    </div>
+    <div class="col-xs-1">
+      <button class="btn btn-danger" ng-click="deleteProduct(product)">
+        Delete
+      </button>
+    </div>
+    <div class="col-xs-1">
+      <button class="btn btn-default" ui-sref = "main.product">
+        BACK
+      </button>
+    </div>
+  </div>
+</div>

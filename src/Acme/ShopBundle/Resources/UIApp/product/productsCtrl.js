@@ -1,4 +1,4 @@
-productsCtrl = function ($scope, products, categories, CurrentUser)
+productsCtrl = function ($scope, $state, products, categories, CurrentUser)
 {
 	$scope.categories  = categories;
 	$scope.products    = products;
@@ -11,6 +11,7 @@ productsCtrl = function ($scope, products, categories, CurrentUser)
 			// $state.transitionTo('main.product.buy', {productId : product.id});
 		}
 	};
+	
 	$scope.addInShopCart = function(){};
 };
 

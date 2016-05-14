@@ -1,7 +1,7 @@
-<div>
-  <div class="row">
-    <div class="col-xs-offset-1 col-xs-6">
-      <table class="table table-striped" >
+<div ui-view>
+  <div class = "row">
+    <div class = "col-xs-offset-1 col-xs-6">
+      <table class = "table table-striped" >
       <tr>
         <th>Id</th>
         <th>Name</th>
@@ -10,20 +10,25 @@
         <th>Категория</th>
       </tr>
         <tr 
-          ng-repeat="product in products" 
-          style="border: 1px solid green;" 
-          ng-click="editProductOrBuyProduct(product)">
+          ng-repeat = "product in products" 
+          style     = "border: 1px solid green;" 
+          ng-click  = "editProductOrBuyProduct(product)">
           <td>
-            <img ng-src="/image/edit_25x25.png" alt="Description" />
+            <img 
+              ng-show = "currentUser.isAdmin()"
+              ng-src  = "/image/edit_25x25.png" 
+              alt     = "Description" />
             [[product.id]]
           </td>
           <td>[[product.name]]</td>
-          <td>[[product.price]]</td>
+          <td>[[product.price | number:2]]</td>
           <td>[[product.description]]</td>
           <td>[[product.category_name]]</td>
-          <td ng-show="!currentUser.isAdmin()">
-            <button class="btn btn-info" ng-click="addInShopCart()">
-              Buy
+          <td ng-show = "!currentUser.isAdmin()">
+            <button 
+              class    = "btn btn-info" 
+              ng-click = "addInShopCart()">
+              addInShopCart
             </button>
           </td>
         </tr>
@@ -34,8 +39,8 @@
   <div class="row">
     <div class="col-xs-12">
       <button 
-        class    = "btn btn-info"
-        ng-click = "addProduct()">
+        class   = "btn btn-info"
+        ui-sref = "main.product.new">
         Add new Product
       </button>
     </div>
