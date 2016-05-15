@@ -80,6 +80,7 @@ class MainApiController extends Controller
             $dispatcher = $this->get('event_dispatcher'); 
             $dispatcher->dispatch($eventName, $event);
 
+
             $em->persist($entity);
             $em->flush();
             return ApiResponse::ok($entity->toArray());
@@ -109,14 +110,12 @@ class MainApiController extends Controller
 
         if ($form->isValid()) {
             $this->populateEntityRelations($entity);
-
             $eventName  = strtolower($currentEntityName); 
             $eventName  = "{$eventName}_change";
             
             $event      = new EntityChangeEvent($this, $entity, $data, 'create');
             $dispatcher = $this->get('event_dispatcher'); 
             $dispatcher->dispatch($eventName, $event);
-
             $em->persist($entity);
             $em->flush();
            return ApiResponse::ok($entity->toArray());
@@ -152,19 +151,23 @@ class MainApiController extends Controller
 
             foreach ($metadata->associationMappings as $relation) {
                 $targetEntityClass = $relation['targetEntity'];
-                $method          = 'get' . ucfirst($relation['fieldName']);
-
-                if( !method_exists($entity, $method.'Id') ){
-                    continue;
+                $method            = 'get' . ucfirst($relation['fieldName']);
+                if(method_exists($entity, $method.'Id') ){
+                    $relEntityId = $entity->{$method.'Id'}();
+                    if ( $relEntityId ) {
+                        $relObject = $em->find($targetEntityClass, $relEntityId);
+                        $set_method = 'set' . ucfirst($relation['fieldName']);
+                        $entity->{$set_method}($relObject);
+                    }
+                } else {
+                    if ($relation['isCascadePersist']) {
+                        $entities = $entity->{$method}();
+                        foreach ($entities as $entity) {
+                            $this->populateEntityRelations($entity);
+                        }
+                    }
                 }
             
-                $relEntityId = $entity->{$method.'Id'}();
-
-                if ( $relEntityId ) {
-                    $relObject = $em->find($targetEntityClass, $relEntityId);
-                    $set_method = 'set' . ucfirst($relation['fieldName']);
-                    $entity->{$set_method}($relObject);
-                }
             }
         }
     }

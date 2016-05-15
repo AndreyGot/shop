@@ -85,11 +85,17 @@ class Bill
 
     public function toArray()
     {
+        $valueProducts = array();
+
+        foreach ($this->getValueProducts() as $valueProduct) {
+            $valueProducts[] = $valueProduct->toArray();
+        }
+
         return array(
             'id'             => $this->getId(),
             'user_id'        => $this->getUserId(),
             'user_name'      => $this->getUser() ? $this->getUser()->getName() : '',
-            'valueProducts'  => $this->getValueProducts()->toArray(),
+            'valueProducts'  => $valueProducts,
             'created'        => $this->getCreated()->format('d-m-Y H:i:s')
             );
     }
@@ -159,8 +165,9 @@ class Bill
      */
     public function addValueProduct(\Acme\ShopBundle\Entity\ValueProduct $valueProducts)
     {
+        
         $this->valueProducts[] = $valueProducts;
-
+        $valueProducts->setBill($this);
         return $this;
     }
 

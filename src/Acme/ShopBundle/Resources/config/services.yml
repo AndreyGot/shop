@@ -5,3 +5,9 @@ services:
             - { name: kernel.event_listener, event: user_change, method: userChange }
         arguments:
             - @service_container
+    restaurant.bill_change_listener:
+        class: Acme\ShopBundle\EventListener\BillChangeEventListener
+        tags:
+            - { name: kernel.event_listener, event: bill_change, method: billChange }
+        arguments:
+            - @service_container

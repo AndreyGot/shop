@@ -22,18 +22,19 @@ class ValueProduct
     private $id;
 
     /**
-     * @Assert\NotBlank(message="Bill_id is required.")
+     * @Assert\NotBlank(message="Bill is required.")
      * @ORM\Column(name="bill_id", type="integer")
      */
     private $billId;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Bill", inversedBy="bills")
-     * @ORM\JoinColumn(name="bill_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Bill", inversedBy="valueProducts"))
+     * @ORM\JoinColumn(name="bill_id", referencedColumnName="id", onDelete = "CASCADE")
      */
     private $bill;
 
     /**
+     * @Assert\NotBlank(message="Product is required.")
      * @ORM\Column(name="product_id", type="integer")
      */
     private $productId;

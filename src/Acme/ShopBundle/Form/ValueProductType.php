@@ -15,7 +15,6 @@ class ValueProductType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('bill_id')
             ->add('product_id')
             ->add('value')
         ;
