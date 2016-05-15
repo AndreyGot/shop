@@ -4,10 +4,12 @@ namespace Acme\ShopBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Bill
- * @ORM\Table(name="bill")
+ * @ORM\Table(name="bill",
+ *  uniqueConstraints={@ORM\UniqueConstraint(name="SESSION", columns={"session"})}))
  * @ORM\Entity(repositoryClass="Acme\ShopBundle\Repository\BillRepository")
  * @ORM\HasLifecycleCallbacks
  */
@@ -23,8 +25,7 @@ class Bill
     private $id;
 
     /**
-     * @Assert\NotBlank(message="UserId is required.")
-     * @ORM\Column(name="user_id", type="integer")
+     * @ORM\Column(name="user_id", type="integer", nullable=true)
      */
     private $userId;
 
@@ -35,7 +36,16 @@ class Bill
     private $user;
 
     /**
-     * @ORM\OneToMany(targetEntity="ValueProduct", mappedBy="bill")
+     * @var string
+     * @ORM\Column(name="session", type="string", length=50, nullable=true)
+     */
+    private $session;
+
+    /**
+     * @ORM\OneToMany(
+     *  targetEntity = "ValueProduct", 
+     *  mappedBy     = "bill", 
+     *  cascade      = {"persist", "remove"})
      */
     private $valueProducts;
 
@@ -61,14 +71,26 @@ class Bill
         }
     }
 
+    /**
+     * @ Assert\Callback
+     */
+    public function validate(ExecutionContextInterface $context)
+    {
+        if (!$this->getUser() and !$this->getSession()) {
+            $context->buildViolation('Bill should have owner.')
+                    ->addViolation();
+        }
+    }
+
 
     public function toArray()
     {
         return array(
-            'id'        => $this->getId(),
-            'user_id'   => $this->getUserId(),
-            'user_name' => $this->getUser()->getName(),
-            'created'   => $this->getCreated()->format('d-m-Y H:i:s')
+            'id'             => $this->getId(),
+            'user_id'        => $this->getUserId(),
+            'user_name'      => $this->getUser() ? $this->getUser()->getName() : '',
+            'valueProducts'  => $this->getValueProducts()->toArray(),
+            'created'        => $this->getCreated()->format('d-m-Y H:i:s')
             );
     }
 
@@ -182,5 +204,28 @@ class Bill
     private function getCreated()
     {
         return $this->created;
+    }
+
+    /**
+     * Set session
+     *
+     * @param string $session
+     * @return Bill
+     */
+    public function setSession($session)
+    {
+        $this->session = $session;
+
+        return $this;
+    }
+
+    /**
+     * Get session
+     *
+     * @return string 
+     */
+    public function getSession()
+    {
+        return $this->session;
     }
 }
